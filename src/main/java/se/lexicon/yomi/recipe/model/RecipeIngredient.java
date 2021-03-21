@@ -1,10 +1,9 @@
 package se.lexicon.yomi.recipe.model;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.annotation.Generated;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Objects;
 import java.util.UUID;
 import java.lang.String;
@@ -13,13 +12,16 @@ import java.lang.String;
 public class RecipeIngredient {
 
     @Id
-    @GeneratedValue()
-
-
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name= "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     private String recipeIngredientId;
+    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.REFRESH, CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn(name = "ingredientId", table = "ingredient")
     private Ingredient ingredient;
     private double amount;
     private Measurement measurement;
+    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.REFRESH, CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn(name = "recipeId", table = "recipes")
     private Recipe recipe;
 
     public RecipeIngredient(String recipeIngredientId, Ingredient ingredient, double amount, Measurement measurement, Recipe recipe) {

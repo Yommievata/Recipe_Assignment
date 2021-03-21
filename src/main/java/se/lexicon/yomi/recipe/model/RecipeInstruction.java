@@ -1,14 +1,16 @@
 package se.lexicon.yomi.recipe.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
 public class RecipeInstruction {
     @Id
     @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+
     private String instructionId;
     private String instructions;
 

@@ -1,7 +1,6 @@
 package se.lexicon.yomi.recipe.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
 
@@ -11,6 +10,8 @@ public class RecipeCategory {
     @Id
     private int categoryId;
     private String category;
+    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.REFRESH, CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn(name = "recipes", table = "recipeCategory")
     private List<Recipe> recipes;
 
     public RecipeCategory(int categoryId, String category, List<Recipe> recipes) {
